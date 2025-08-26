@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjali Rawat - HubSpot Developer & Web Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1/bundled/lenis.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0a0a0a;
+            color: #f1f5f9;
+        }
+        .gradient-bg { background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(6, 182, 212, 0.4); }
+        .skill-bar { width: 0%; }
+        .fade-in { opacity: 0; transform: translateY(50px); }
+        .slide-in-left { opacity: 0; transform: translateX(-50px); }
+        .slide-in-right { opacity: 0; transform: translateX(50px); }
+        .scale-in { opacity: 0; transform: scale(0.8); }
+        
+        /* Floating Shapes Animation */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1));
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+            backdrop-filter: blur(10px);
+        }
+        
+        .shape-1 {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+        
+        .shape-2 {
+            width: 120px;
+            height: 120px;
+            left: 80%;
+            animation-delay: -5s;
+            animation-duration: 30s;
+        }
+        
+        .shape-3 {
+            width: 60px;
+            height: 60px;
+            left: 60%;
+            animation-delay: -10s;
+            animation-duration: 20s;
+        }
+        
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            left: 30%;
+            animation-delay: -15s;
+            animation-duration: 35s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Gradient Text Animation */
+        @keyframes gradient-shift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(-45deg, #06b6d4, #3b82f6, #8b5cf6, #10b981);
+            background-size: 400% 400%;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        /* Typewriter Effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #06b6d4;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #06b6d4; }
+        }
+
+        /* Particle System */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #06b6d4;
+            border-radius: 50%;
+            animation: particle-float 15s infinite linear;
+            opacity: 0.8;
+            box-shadow: 0 0 6px #06b6d4;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Morphing Shapes */
+        .morph-shape {
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        @keyframes morph {
+            0%, 100% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+            50% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+            }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-anim-1 0.5s infinite linear alternate-reverse;
+            color: #ff0000;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-anim-2 0.5s infinite linear alternate-reverse;
+            color: #00ffff;
+            z-index: -2;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            25% { clip: rect(12px, 9999px, 59px, 0); }
+            50% { clip: rect(69px, 9999px, 74px, 0); }
+            75% { clip: rect(86px, 9999px, 91px, 0); }
+            100% { clip: rect(25px, 9999px, 30px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 119px, 0); }
+            25% { clip: rect(90px, 9999px, 94px, 0); }
+            50% { clip: rect(41px, 9999px, 46px, 0); }
+            75% { clip: rect(3px, 9999px, 8px, 0); }
+            100% { clip: rect(76px, 9999px, 81px, 0); }
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            10% { transform: skew(-2deg); }
+            20% { transform: skew(1deg); }
+            30% { transform: skew(-1deg); }
+            40% { transform: skew(2deg); }
+            50% { transform: skew(-1deg); }
+            60% { transform: skew(0deg); }
+            70% { transform: skew(1deg); }
+            80% { transform: skew(-2deg); }
+            90% { transform: skew(1deg); }
+            100% { transform: skew(0deg); }
+        }
+
+        /* Neon Glow Effect */
+        .neon-glow {
+            text-shadow: 
+                0 0 5px #06b6d4,
+                0 0 10px #06b6d4,
+                0 0 15px #06b6d4,
+                0 0 20px #06b6d4,
+                0 0 35px #06b6d4,
+                0 0 40px #06b6d4;
+            animation: neon-flicker 2s infinite alternate;
+        }
+
+        @keyframes neon-flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 
+                    0 0 5px #06b6d4,
+                    0 0 10px #06b6d4,
+                    0 0 15px #06b6d4,
+                    0 0 20px #06b6d4,
+                    0 0 35px #06b6d4,
+                    0 0 40px #06b6d4;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+
+        /* Liquid Animation */
+        .liquid-bg {
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #0f766e, #164e63);
+            background-size: 400% 400%;
+            animation: liquid-gradient 15s ease infinite;
+        }
+
+        @keyframes liquid-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Bounce In Animation */
+        .bounce-in {
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Pulse Animation */
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(6, 182, 212, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+            }
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .matrix-char {
+            position: absolute;
+            color: #06b6d4;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            animation: matrix-fall 3s linear infinite;
+            text-shadow: 0 0 5px #06b6d4;
+        }
+
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        html.lenis {
+            height: auto;
+        }
+        
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+        
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+        
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-900">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-slate-900/90 backdrop-blur-md z-50 shadow-lg border-b border-cyan-500/20">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-white">Anjali Rawat</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-cyan-400 transition-colors">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-cyan-400 transition-colors">About</a>
+                    <a href="#skills" class="text-gray-300 hover:text-cyan-400 transition-colors">Skills</a>
+                    <a href="#experience" class="text-gray-300 hover:text-cyan-400 transition-colors">Experience</a>
+                    <a href="#contact" class="text-gray-300 hover:text-cyan-400 transition-colors">Contact</a>
+                </div>
+                <button id="mobile-menu" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Large Background Image -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-slate-900/98 via-cyan-900/95 to-slate-900/98 z-10"></div>
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80')] bg-cover bg-center bg-no-repeat"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23a855f7" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] z-20"></div>
+            <div class="floating-shapes z-30">
+                <div class="shape shape-1 morph-shape"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3 morph-shape"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="particles z-25">
+                <!-- Particles will be generated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="relative z-40 text-center px-6 max-w-5xl mx-auto">
+            <!-- Profile Image -->
+            <div class="relative mb-12 fade-in">
+                <div class="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 p-2 shadow-2xl shadow-purple-500/30">
+                    <div class="w-full h-full rounded-full bg-[url('https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80')] bg-cover bg-center bg-no-repeat border-4 border-white/20 backdrop-blur-sm">
+                    </div>
+                </div>
+                <div class="absolute top-2 right-2 w-8 h-8 bg-green-400 rounded-full border-4 border-white shadow-lg animate-pulse flex items-center justify-center">
+                    <div class="w-3 h-3 bg-white rounded-full"></div>
+                </div>
+            </div>
+
+            <!-- Text Content -->
+            <div class="space-y-6">
+                <div class="fade-in">
+                    <p class="text-purple-300 text-lg font-medium tracking-wider uppercase mb-4 drop-shadow-lg">Hello, I'm</p>
+                    <h1 class="text-6xl md:text-8xl font-black text-white mb-4 tracking-tight drop-shadow-2xl">
+                        Anjali <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 drop-shadow-none">Rawat</span>
+                    </h1>
+                </div>
+                
+                <div class="fade-in">
+                    <h2 class="text-2xl md:text-4xl font-light text-gray-200 mb-6 drop-shadow-lg typewriter" data-text="HubSpot Developer & Web Designer">
+                        <span class="font-semibold text-white">HubSpot Developer</span> & Web Designer
+                    </h2>
+                </div>
+                
+                <div class="fade-in">
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12 drop-shadow-md">
+                        Creating visually stunning and user-friendly websites with expertise in 
+                        <span class="text-purple-300 font-semibold">HubSpot CMS</span>, front-end development, and pixel-perfect design conversions
+                    </p>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center fade-in">
+                    <a href="https://anjalirawatportfolio.netlify.app/" target="_blank" class="group relative px-10 py-5 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-bold rounded-2xl shadow-2xl shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 backdrop-blur-sm pulse-glow">
+                        <span class="relative z-10 text-lg">View Portfolio</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                    <a href="#contact" class="px-10 py-5 border-2 border-white/30 text-white font-bold rounded-2xl hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-md shadow-lg text-lg bounce-in">
+                        Get In Touch
+                    </a>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex justify-center space-x-6 mt-16 fade-in">
+                    <a href="https://www.linkedin.com/in/anjali-rawat-534704200" target="_blank" class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-purple-500/30 hover:scale-110">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:anjalirawat26699@gmail.com" class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-purple-500/30 hover:scale-110">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://anjalirawatportfolio.netlify.app/" target="_blank" class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-purple-500/30 hover:scale-110">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 fade-in">
+            <div class="flex flex-col items-center text-gray-400">
+                <span class="text-sm mb-2">Scroll Down</span>
+                <div class="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+                    <div class="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-bounce"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-slate-800 liquid-bg">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="slide-in-left">
+                    <h2 class="text-4xl font-bold text-white mb-6">About Me</h2>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        I'm a skilled web developer with a passion for creating visually stunning and user-friendly websites. 
+                        Experienced in front-end development with a strong understanding of design principles and HubSpot CMS development.
+                    </p>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Proficient in HTML, CSS, jQuery, and responsive web design. I specialize in pixel-perfect Figma/PSD to code conversions 
+                        and HubSpot module development, dedicated to delivering high-quality projects on time.
+                    </p>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-white mb-4">Personal Information</h3>
+                        <div class="space-y-2 text-gray-300">
+                            <p><span class="text-purple-400 font-medium">Date of Birth:</span> 26th June 1999</p>
+                            <p><span class="text-purple-400 font-medium">Nationality:</span> Indian</p>
+                            <p><span class="text-purple-400 font-medium">Status:</span> Unmarried</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center p-4 bg-slate-700/50 rounded-lg border border-purple-500/20 scale-in">
+                            <div class="text-3xl font-bold text-purple-400">3+</div>
+                            <div class="text-gray-300">Years Experience</div>
+                        </div>
+                        <div class="text-center p-4 bg-slate-700/50 rounded-lg border border-purple-500/20 scale-in">
+                            <div class="text-3xl font-bold text-purple-400">50+</div>
+                            <div class="text-gray-300">Projects Completed</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-in-right">
+                    <div class="bg-gradient-to-br from-purple-900/50 to-blue-900/50 p-8 rounded-2xl border border-purple-500/20">
+                        <div class="text-center mb-6">
+                            <h3 class="text-2xl font-bold text-white mb-4">Education</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-slate-800/50 rounded-lg">
+                                <h4 class="font-semibold text-purple-400">Full Stack Developer Course</h4>
+                                <p class="text-gray-300 text-sm">DICE Academy (Completed)</p>
+                            </div>
+                            <div class="p-4 bg-slate-800/50 rounded-lg">
+                                <h4 class="font-semibold text-purple-400">Diploma in Computer Science</h4>
+                                <p class="text-gray-300 text-sm">BSM College of Engineering (2019)</p>
+                            </div>
+                            <div class="p-4 bg-slate-800/50 rounded-lg">
+                                <h4 class="font-semibold text-purple-400">Senior Secondary</h4>
+                                <p class="text-gray-300 text-sm">Uttarakhand Board (2016)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-slate-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">Technical Skills</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Comprehensive expertise in modern web development technologies and design tools</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Frontend Skills -->
+                <div class="slide-in-left">
+                    <h3 class="text-2xl font-semibold text-white mb-8">Frontend Development</h3>
+                    <div class="space-y-6">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-gray-300">HTML5</span>
+                                <span class="text-purple-400">95%</span>
+                            </div>
+                            <div class="bg-slate-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-gray-300">CSS3</span>
+                                <span class="text-purple-400">90%</span>
+                            </div>
+                            <div class="bg-slate-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-gray-300">JavaScript</span>
+                                <span class="text-purple-400">85%</span>
+                            </div>
+                            <div class="bg-slate-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-gray-300">jQuery</span>
+                                <span class="text-purple-400">88%</span>
+                            </div>
+                            <div class="bg-slate-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full" data-width="88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-gray-300">Tailwind CSS</span>
+                                <span class="text-purple-400">92%</span>
+                            </div>
+                            <div class="bg-slate-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full" data-width="92%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium text-gray-300">Bootstrap</span>
+                                <span class="text-purple-400">90%</span>
+                            </div>
+                            <div class="bg-slate-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full" data-width="90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design & CMS Skills -->
+                <div class="slide-in-right">
+                    <h3 class="text-2xl font-semibold text-white mb-8">Design Tools & CMS</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4 p-4 bg-slate-800/50 rounded-lg border border-purple-500/20 card-hover">
+                            <div class="w-12 h-12 bg-orange-900/50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white">HubSpot CMS</h4>
+                                <p class="text-gray-300 text-sm">Module & Template Development</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-4 bg-slate-800/50 rounded-lg border border-purple-500/20 card-hover">
+                            <div class="w-12 h-12 bg-purple-900/50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white">Figma</h4>
+                                <p class="text-gray-300 text-sm">UI Design & Prototyping</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-4 bg-slate-800/50 rounded-lg border border-purple-500/20 card-hover">
+                            <div class="w-12 h-12 bg-blue-900/50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white">Adobe Creative Suite</h4>
+                                <p class="text-gray-300 text-sm">Photoshop, XD, PSD Conversion</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-4 bg-slate-800/50 rounded-lg border border-purple-500/20 card-hover">
+                            <div class="w-12 h-12 bg-green-900/50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white">Webflow</h4>
+                                <p class="text-gray-300 text-sm">Visual Web Development</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-slate-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">Work Experience</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Professional journey in web development and HubSpot specialization</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Current Position -->
+                <div class="card-hover bg-slate-700/50 rounded-xl p-8 border border-purple-500/20 scale-in">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Web Designer</h3>
+                            <p class="text-purple-400 font-semibold">GTF Technologies</p>
+                        </div>
+                        <div class="text-gray-300 font-medium">August 2023 - Present</div>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Skilled in creating responsive and visually appealing layouts and microsites from scratch using HTML, CSS, Bootstrap, and JavaScript</li>
+                        <li>• Expertise in transforming design concepts into functional and user-friendly websites, ensuring pixel-perfect implementation</li>
+                        <li>• Experienced in optimizing websites for speed, performance, and SEO, ensuring fast load times and improved user experience</li>
+                    </ul>
+                </div>
+
+                <!-- Previous Positions -->
+                <div class="card-hover bg-slate-700/50 rounded-xl p-8 border border-purple-500/20 scale-in">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Junior HubSpot Developer</h3>
+                            <p class="text-purple-400 font-semibold">Growtomation</p>
+                        </div>
+                        <div class="text-gray-300 font-medium">March 2023 - May 2023</div>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Pixel perfect FIGMA, PSD, XD conversions</li>
+                        <li>• HubSpot customization and development</li>
+                        <li>• Landing pages and blog development</li>
+                        <li>• Development of simple HUBDB functionalities</li>
+                    </ul>
+                </div>
+
+                <div class="card-hover bg-slate-700/50 rounded-xl p-8 border border-purple-500/20 scale-in">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Website Designer | HubSpot Developer</h3>
+                            <p class="text-purple-400 font-semibold">The Webplant Pvt Ltd</p>
+                        </div>
+                        <div class="text-gray-300 font-medium">June 2022 - Feb 2023</div>
+                    </div>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Key responsibility to design, manage and migrate the front end</li>
+                        <li>• Developed and maintained responsive websites using HTML, CSS, and JavaScript</li>
+                        <li>• Implemented front-end frameworks like Bootstrap and jQuery to enhance website functionality</li>
+                        <li>• HubSpot modules and template development</li>
+                        <li>• CMS customization and optimization</li>
+                    </ul>
+                </div>
+
+                <!-- Internships -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card-hover bg-slate-700/50 rounded-xl p-6 border border-purple-500/20 scale-in">
+                        <h3 class="text-xl font-bold text-white mb-2">HubSpot Developer Intern</h3>
+                        <p class="text-purple-400 font-semibold mb-2">The Webplant Pvt. Ltd.</p>
+                        <p class="text-gray-300 text-sm mb-4">June 2021 - May 2022 (1 Year)</p>
+                        <p class="text-gray-300">Comprehensive training in HubSpot development, web design principles, and front-end technologies.</p>
+                    </div>
+                    <div class="card-hover bg-slate-700/50 rounded-xl p-6 border border-purple-500/20 scale-in">
+                        <h3 class="text-xl font-bold text-white mb-2">Technical Intern</h3>
+                        <p class="text-purple-400 font-semibold mb-2">BHEL Haridwar</p>
+                        <p class="text-gray-300 text-sm mb-4">2018 (1 Month)</p>
+                        <p class="text-gray-300">Industrial exposure to engineering processes and technical operations in Uttarakhand.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-900">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">Let's Work Together</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Ready to bring your vision to life? I'd love to discuss your HubSpot development or web design project.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="slide-in-left">
+                    <h3 class="text-2xl font-semibold text-white mb-6">Get In Touch</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-900/50 rounded-lg flex items-center justify-center border border-purple-500/30">
+                                <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-white">Email</div>
+                                <div class="text-gray-300">anjalirawat26699@gmail.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-900/50 rounded-lg flex items-center justify-center border border-blue-500/30">
+                                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-white">Phone</div>
+                                <div class="text-gray-300">+91 839-482-6950</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-green-900/50 rounded-lg flex items-center justify-center border border-green-500/30">
+                                <svg class="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-white">LinkedIn</div>
+                                <div class="text-gray-300">anjali-rawat-534704200</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-orange-900/50 rounded-lg flex items-center justify-center border border-orange-500/30">
+                                <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-white">Portfolio</div>
+                                <div class="text-gray-300">anjalirawatportfolio.netlify.app</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-in-right">
+                    <form class="space-y-6" id="contact-form">
+                        <div>
+                            <label class="block text-gray-300 font-medium mb-2">Name</label>
+                            <input type="text" class="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/30 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-medium mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/30 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400" placeholder="your@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-medium mb-2">Project Type</label>
+                            <select class="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/30 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white">
+                                <option>HubSpot Development</option>
+                                <option>Web Design</option>
+                                <option>PSD/Figma Conversion</option>
+                                <option>Landing Page</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 font-medium mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/30 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-400" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-colors shadow-lg hover:shadow-purple-500/25">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-white py-12 border-t border-purple-500/20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center">
+                <div class="text-2xl font-bold mb-4">Anjali Rawat</div>
+                <p class="text-gray-400 mb-6">Creating beautiful web experiences with HubSpot expertise.</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://www.linkedin.com/in/anjali-rawat-534704200" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:anjalirawat26699@gmail.com" class="text-gray-400 hover:text-purple-400 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://anjalirawatportfolio.netlify.app/" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="mt-8 pt-8 border-t border-purple-500/20 text-gray-400">
+                    <p>&copy; 2024 Anjali Rawat. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Register GSAP ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initialize GSAP animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial states for animated elements
+            gsap.set('.fade-in', { opacity: 0, y: 50 });
+            gsap.set('.slide-in-left', { opacity: 0, x: -100 });
+            gsap.set('.slide-in-right', { opacity: 0, x: 100 });
+            gsap.set('.scale-in', { opacity: 0, scale: 0.8 });
+            gsap.set('.skill-bar', { width: '0%' });
+
+            // Create particle system
+            createParticleSystem();
+
+            // Add matrix rain effect
+            createMatrixRain();
+
+            // Hero section animations - immediate on load
+            const heroElements = document.querySelectorAll('#home .fade-in');
+            gsap.to(heroElements, {
+                duration: 1.2,
+                y: 0,
+                opacity: 1,
+                stagger: 0.3,
+                ease: "power3.out",
+                delay: 0.5
+            });
+
+            // Floating shapes continuous animation
+            gsap.to('.shape', {
+                y: -100,
+                rotation: 360,
+                duration: 20,
+                repeat: -1,
+                ease: "none",
+                stagger: {
+                    each: 2,
+                    repeat: -1
+                }
+            });
+
+            // Scroll-triggered animations for fade-in elements (excluding hero)
+            gsap.utils.toArray('.fade-in').forEach((element, index) => {
+                // Skip hero elements as they're already animated
+                if (!element.closest('#home')) {
+                    ScrollTrigger.create({
+                        trigger: element,
+                        start: "top 85%",
+                        onEnter: () => {
+                            gsap.to(element, {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1,
+                                ease: "power2.out"
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Slide in left animations
+            gsap.utils.toArray('.slide-in-left').forEach(element => {
+                ScrollTrigger.create({
+                    trigger: element,
+                    start: "top 85%",
+                    onEnter: () => {
+                        gsap.to(element, {
+                            opacity: 1,
+                            x: 0,
+                            duration: 1.2,
+                            ease: "power3.out"
+                        });
+                    }
+                });
+            });
+
+            // Slide in right animations
+            gsap.utils.toArray('.slide-in-right').forEach(element => {
+                ScrollTrigger.create({
+                    trigger: element,
+                    start: "top 85%",
+                    onEnter: () => {
+                        gsap.to(element, {
+                            opacity: 1,
+                            x: 0,
+                            duration: 1.2,
+                            ease: "power3.out"
+                        });
+                    }
+                });
+            });
+
+            // Scale in animations
+            gsap.utils.toArray('.scale-in').forEach(element => {
+                ScrollTrigger.create({
+                    trigger: element,
+                    start: "top 85%",
+                    onEnter: () => {
+                        gsap.to(element, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 1,
+                            ease: "back.out(1.7)"
+                        });
+                    }
+                });
+            });
+
+            // Skill bars animation
+            gsap.utils.toArray('.skill-bar').forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                ScrollTrigger.create({
+                    trigger: bar,
+                    start: "top 85%",
+                    onEnter: () => {
+                        gsap.to(bar, {
+                            width: width,
+                            duration: 1.5,
+                            ease: "power2.out"
+                        });
+                    }
+                });
+            });
+
+            // Card hover animations
+            gsap.utils.toArray('.card-hover').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, {
+                        y: -10,
+                        scale: 1.02,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        y: 0,
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+
+            // Navigation smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const targetPosition = target.offsetTop - 80;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Parallax effect for hero background
+            ScrollTrigger.create({
+                trigger: "#home",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    gsap.set('#home .absolute', {
+                        yPercent: -50 * progress
+                    });
+                }
+            });
+
+            // Refresh ScrollTrigger after everything is set up
+            ScrollTrigger.refresh();
+        });
+
+        // Particle System Function
+        function createParticleSystem() {
+            const particleContainer = document.querySelector('.particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random positioning and timing
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                // Random colors
+                const colors = ['#a855f7', '#ec4899', '#8b5cf6', '#f97316'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particleContainer.appendChild(particle);
+            }
+        }
+
+        // Matrix Rain Effect Function
+        function createMatrixRain() {
+            const matrixContainer = document.createElement('div');
+            matrixContainer.className = 'matrix-rain';
+            document.querySelector('#skills').appendChild(matrixContainer);
+
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            function createMatrixChar() {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                
+                matrixContainer.appendChild(char);
+                
+                setTimeout(() => {
+                    char.remove();
+                }, 3000);
+            }
+            
+            setInterval(createMatrixChar, 200);
+        }
+
+        // Text Scramble Effect
+        function scrambleText(element, finalText) {
+            const chars = '!<>-_\\/[]{}—=+*^?#________';
+            let iteration = 0;
+            
+            const interval = setInterval(() => {
+                element.textContent = finalText
+                    .split('')
+                    .map((letter, index) => {
+                        if (index < iteration) {
+                            return finalText[index];
+                        }
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    })
+                    .join('');
+                
+                if (iteration >= finalText.length) {
+                    clearInterval(interval);
+                }
+                
+                iteration += 1 / 3;
+            }, 30);
+        }
+
+        // Magnetic Effect for buttons
+        function addMagneticEffect() {
+            const buttons = document.querySelectorAll('a, button');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mousemove', (e) => {
+                    const rect = button.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    gsap.to(button, {
+                        x: x * 0.1,
+                        y: y * 0.1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    gsap.to(button, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+        }
+
+        // Initialize magnetic effect
+        setTimeout(addMagneticEffect, 1000);
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            alert('Mobile menu would open here!');
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const message = this.querySelector('textarea').value;
+            
+            if (name && email && message) {
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                
+                gsap.to(submitBtn, {
+                    scale: 0.95,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 1
+                });
+                
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Thank you for your message! I\'ll get back to you soon.');
+                    this.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9752619f91dfa725',t:'MTc1NjIwMTM3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
